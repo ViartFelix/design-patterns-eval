@@ -5,6 +5,7 @@
 - Bulldozer
 - Rouleau compresseur
 Elles héritent d'une classe parente: "Engin"
+Implémentent une interface "EnginContract"
 
 Une classe "Box" qui vas retenir max 8 engins (multiton)
 Pour la génération des engins, faire une factory
