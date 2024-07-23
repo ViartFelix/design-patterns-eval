@@ -1,0 +1,89 @@
+:root {
+    font-size: 16px;
+}
+
+html, body {
+    background: #eee;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden !important;
+}
+
+body,h1,h2,h3,h4,h5,h6,p,hr,ul,ol {
+    margin: 0;
+}
+
+* {
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+}
+
+ul,li,ol {
+    padding-left: 0;
+    list-style: none;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+main .builder {
+    border-right: 0.5rem solid #f99821;
+    background: #d92630;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2rem);
+    padding: 4rem 1rem;
+    row-gap: 4rem;
+}
+
+main .builder > * {
+    user-select: none;
+    cursor: pointer;
+    height: fit-content;
+    color: #eee;
+    font-weight: bold;
+}
+
+main #form {
+    overflow: hidden visible;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    width: calc(100% - 2rem);
+}
+
+main #form h1 {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.modal {
+    position: absolute;
+    top: 1000vh;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -999;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal .container {
+    max-width: 75%;
+    padding: 2rem;
+    border-radius: 2rem;
+    background: #eee;
+}
+
+.modal.open {
+    top: 0 !important;
+    z-index: 999;
+}
