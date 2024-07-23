@@ -1,6 +1,6 @@
 <?php
 
-namespace Engins;
+namespace App\Engins;
 
 class Bulldozer extends Engin implements EnginContract
 {

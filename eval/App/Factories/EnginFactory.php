@@ -1,13 +1,13 @@
 <?php
 
-namespace Factories;
+namespace App\Factories;
 
-use Engins\Bulldozer;
-use Engins\Engin;
-use Engins\Nacelle;
-use Engins\Pelleteuse;
-use Engins\RouleauCompresseur;
-use Engins\Tractopelle;
+use App\Engins\Bulldozer;
+use App\Engins\Engin;
+use App\Engins\Nacelle;
+use App\Engins\Pelleteuse;
+use App\Engins\RouleauCompresseur;
+use App\Engins\Tractopelle;
 
 class EnginFactory
 {
@@ -33,6 +33,8 @@ class EnginFactory
                 $this->instance = new Tractopelle();
                 break;
         }
+
+        return $this->instance;
     }
 
     /**

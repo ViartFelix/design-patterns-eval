@@ -1,8 +1,9 @@
 <?php
 
-namespace Box;
+namespace app\Box;
 
-use Engins\Engin;
+use App\Engins\Engin;
+use App\Box\BoxManager;
 
 /**
  * Classe Box.
@@ -35,11 +36,20 @@ class Box
         }
         //si on peut ajouter encore un engin
         else if($this->canInsert($engin)) {
-            self::$engins[] = $this;
+            self::$engins[] = $engin;
         }
-        //sinon, alors on demande au BoxManager d'ajouter une boîte
+        //sinon, alors on demande au BoxManager d'ajouter une boîte avec
         else {
             BoxManager::getInstance()->addBox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEngin($engin): Box
+    {
+        if(!empty(self::$engins)) {
+
         }
 
         return $this;

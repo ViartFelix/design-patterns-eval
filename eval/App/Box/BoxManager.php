@@ -1,6 +1,6 @@
 <?php
 
-namespace Box;
+namespace App\Box;
 
 /**
  * Classe qui va gérer les box.
@@ -33,6 +33,11 @@ class BoxManager
         return self::$instance;
     }
 
+    /**
+     * Ajoute une boîte au manager et un engin si indiqué
+     * @param Box $box
+     * @return $this
+     */
     public function addBox(Box $box): BoxManager
     {
         $this->boxes[] = $box;

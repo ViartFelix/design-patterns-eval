@@ -1,9 +1,6 @@
 <?php
 
-namespace Engins;
-
-use Engins\Engin;
-use Engins\EnginContract;
+namespace App\Engins;
 
 class Pelleteuse extends Engin implements EnginContract
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Engins;
+namespace App\Engins;
 
 interface EnginContract
 {
