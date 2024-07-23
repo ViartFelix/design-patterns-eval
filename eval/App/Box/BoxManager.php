@@ -60,9 +60,9 @@ class BoxManager
     /**
      * Retourne toutes les boîtes ou une seule boîte
      * @param int|null $index
-     * @return array
+     * @return array|Box
      */
-    public function getBoxes(int|null $index = null): array
+    public function getBoxes(int|null $index = null): array|Box
     {
         if(isset($index)) {
             return $this->boxes[$index];
@@ -96,32 +96,69 @@ class BoxManager
             "Bulldozer", "Nacelle", "Pelleteuse", "RouleauCompresseur", "Tractopelle"
         ];
 
-        //si l'engin n'a pas encore été inséré
-        $hasBeenInserted = false;
+        //tableau contenant le nombre d'instances des boîtes
+        $allBoxesEngins = array();
+
         foreach ($this->getBoxes() as $index => $box)
         {
-            if(!$hasBeenInserted) {
-                //comptage du nombre d'instances des classes ci-dessus
-                $resultArray = array_fill_keys($uniqueInstances, 0);
+            //comptage du nombre d'instances des classes ci-dessus
+            $resultArray = array_fill_keys($uniqueInstances, 0);
 
-                foreach ($box->getInstance() as $engin) {
-                    //nom de l'engin instancié
-                    $enginClass = $engin->getEnginName();
-                    //incrémentation du nombre d'instances de cette classe
-                    $resultArray[$enginClass]++;
-                }
+            foreach ($box->getInstance() as $engin) {
+                //nom de l'engin instancié
+                $enginClass = $engin->getEnginName();
+                //incrémentation du nombre d'instances de cette classe
+                $resultArray[$enginClass]++;
+            }
 
-                //si aucune instance de l'engin n'est présent et qu'on peut l'insérer dans la boîte
-                if($box->canInsertEngin()) {
+            $allBoxesEngins[] = $resultArray;
+
+        }
+        $this->insertEqually($allBoxesEngins, $toInsert);
+    }
+
+    /**
+     * Vas insérer, selon plusieurs conditions, l'engin dans les boîtes
+     * @param array $allBoxEngins
+     * @param $toInsert
+     * @return void
+     */
+    private function insertEqually(array $allBoxEngins, $toInsert): void
+    {
+        //si l'engin a été inséré ou non
+        $hasInserted = false;
+
+        $classNameEngin = $toInsert->getEnginName();
+
+        foreach ($allBoxEngins as $index => $box) {
+            //boîte actuelle
+            $currentBox = $this->getBoxes($index);
+
+            //si une place est disponible et que l'engin inséré est le seul de son type
+            if(
+                $box[$classNameEngin] < 1 &&
+                $currentBox->canInsertEngin() &&
+                !$hasInserted
+            ) {
+                //alors on l'insère directement dans la boîte
+                $hasInserted = true;
+                $currentBox->addEngin($toInsert);
+            }
+        }
+
+        //si l'engin n'a pas encore été inséré, alors on vas l'insérer dans la première boîte disponible
+        if(!$hasInserted) {
+            foreach ($allBoxEngins as $index => $box) {
+                if($box->canInsertEngin() && !$hasInserted) {
+                    $hasInserted = true;
                     $box->addEngin($toInsert);
-                    $hasBeenInserted = true;
-                    return;
                 }
             }
         }
 
-        //si aucune boîte ne peut insérer l'engin, alors créer une nouvelle boîte avec cet engin
-        if(!$hasBeenInserted) {
+        //et si aucune boîte n'est disponible
+        if(!$hasInserted) {
+            //alors créer une nouvelle boîte
             $newBox = new Box();
             $newBox->addEngin($toInsert);
         }

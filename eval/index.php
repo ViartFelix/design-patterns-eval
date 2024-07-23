@@ -19,20 +19,23 @@ $instances = [
     EnginFactory::create("Nacelle"),
     EnginFactory::create("Pelleteuse"),
     EnginFactory::create("RouleauCompresseur"),
-    EnginFactory::create("Tractopelle"),
     EnginFactory::create("Bulldozer"),
-    EnginFactory::create("Nacelle"),
+    EnginFactory::create("Tractopelle")
 ];
-
-$b2 = BoxManager::getInstance()->createBox();
 
 foreach ($instances as $instance) {
     //ajout des engins dans une/des boîte(s)
     //méthode 1 pour les ajouter de façon harmonieuse (répartition des engins)
-    BoxManager::getInstance()->addEnginEqually($instance);
+    //BoxManager::getInstance()->addEnginEqually($instance);
     //méthode 2: plus bourrine
-    //$box->addEngin($instance);
+    $box->addEngin($instance);
 }
+
+$box2 = new Box();
+
+
+$box2->addEngin(EnginFactory::create("RouleauCompresseur"));
+BoxManager::getInstance()->addEnginEqually(EnginFactory::create("Tractopelle"));
 
 $pel = EnginFactory::create("Pelleteuse");
 //avant l'ajout de la pelleteuse
