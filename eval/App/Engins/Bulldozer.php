@@ -2,7 +2,9 @@
 
 namespace App\Engins;
 
-class Bulldozer extends Engin implements EnginContract
+use app\Box\Box;
+
+class Bulldozer extends Engin
 {
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Engins;
 
-class Pelleteuse extends Engin implements EnginContract
+class Pelleteuse extends Engin
 {
 
 }

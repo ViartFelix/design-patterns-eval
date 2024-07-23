@@ -7,7 +7,8 @@ use App\Box\BoxManager;
 
 /**
  * Classe Box.
- *
+ * Vas limiter le nombre maximum d'instances des engins.
+ * Patterns utilisés: Multiton, encapsulation, FluentInterface,
  */
 class Box
 {
@@ -15,7 +16,9 @@ class Box
     private int $maxInstances = 8;
 
     /** @var array|Engin[] Tableau d'instances des engins */
-    private static array $engins;
+    private array $engins;
+
+
 
     public function __construct()
     {
@@ -30,65 +33,72 @@ class Box
     public function addEngin($engin): Box
     {
         //si aucun engin dans la box
-        if(empty(self::$engins)) {
+        if(empty($this->engins)) {
             //alors instancier le tableau avec l'engin dedans
-            self::$engins = [$engin];
-        }
-        //si on peut ajouter encore un engin
-        else if($this->canInsert($engin)) {
-            self::$engins[] = $engin;
-        }
-        //sinon, alors on demande au BoxManager d'ajouter une boîte avec
-        else {
+            $this->engins = [$engin];
+            //ajouter la boîte
             BoxManager::getInstance()->addBox($this);
         }
-
-        return $this;
-    }
-
-    public function removeEngin($engin): Box
-    {
-        if(!empty(self::$engins)) {
-
+        //si on peut ajouter encore un engin
+        else if($this->canInsertEngin()) {
+            $this->engins[] = $engin;
+        }
+        //sinon, alors on demande au BoxManager d'ajouter une nouvelle boîte contenant l'engin
+        else {
+            BoxManager::getInstance()->createBox($this);
+            //ajout d'une nouvelle boîte avec son engin
+            $newBox = new Box();
+            $newBox->addEngin($engin);
+            //pas besoin de l'ajouter explicitement au box manager
         }
 
         return $this;
-    }
-
-    public function getInstance(int|null $index = null)
-    {
-        if(isset($index)) {
-            return self::$engins[$index];
-        }
-
-        return self::$engins;
     }
 
     /**
-     * Vas checker si on peut ajouter un engin à la boîte
-     * et si au moins un engin est présent dans chaque boîte
-     * @param $toInsert
+     * Supprime un engin de la boîte grâce à son index
+     * @param int $index
+     * @return $this
+     */
+    public function removeEngin(int $index): Box
+    {
+        if(isset($this->engins[$index])) {
+            unset($this->engins[$index]);
+        }
+
+        //reinitialisation des clefs du tableau
+        $this->setEngins(array_values($this->engins));
+
+        return $this;
+    }
+
+    /**
+     * Regarde si on peut insérer un engin dans la boîte
      * @return bool
      */
-    public function canInsert($toInsert): bool
+    public function canInsertEngin(): bool
     {
-        /** @var array $conditions Tableau des résultats des conditions */
-        $conditions = array();
-        //si le nombre d'instances est inférieur à la limite
-        $conditions[] = sizeof(self::$engins) < $this->maxInstances;
+        return sizeof($this->engins) < $this->maxInstances;
+    }
 
-        $engins = self::getInstance();
+    // --------------------------------------------------------------------------------------------
 
-        /*
-        foreach($engins as $engin) {
-            $instance = get_class($engin);
-
-            if(in_array($instance, BoxManager::getToBeUnique())) {
-
-            }
+    /**
+     * Retourne une ou les instances d'engins
+     * @param int|null $index
+     * @return Engin|Engin[]|array|mixed
+     */
+    public function getInstance(int|null $index = null): mixed
+    {
+        if(isset($index)) {
+            return $this->engins[$index];
         }
-        */
 
-        return !in_array(false, $conditions);
+        return $this->engins;
+    }
+
+    public function setEngins(array $engins): void
+    {
+        $this->engins = $engins;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Engins;
 
-class RouleauCompresseur extends Engin implements EnginContract
+class RouleauCompresseur extends Engin
 {
 
 }

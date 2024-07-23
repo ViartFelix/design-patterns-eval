@@ -2,7 +2,7 @@
 
 namespace App\Engins;
 
-class Tractopelle extends Engin implements EnginContract
+class Tractopelle extends Engin
 {
 
 }

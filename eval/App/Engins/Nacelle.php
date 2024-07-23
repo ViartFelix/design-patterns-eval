@@ -2,6 +2,9 @@
 
 namespace App\Engins;
 
-class Nacelle extends Engin implements EnginContract
+use app\Box\Box;
+
+class Nacelle extends Engin
 {
+
 }
