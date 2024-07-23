@@ -8,7 +8,7 @@ use App\Box\BoxManager;
 /**
  * Classe Box.
  * Vas limiter le nombre maximum d'instances des engins.
- * Patterns utilisés: Multiton, encapsulation, FluentInterface,
+ * Patterns utilisés: Multiton, encapsulation, FluentInterface
  */
 class Box
 {
@@ -17,8 +17,6 @@ class Box
 
     /** @var array|Engin[] Tableau d'instances des engins */
     private array $engins;
-
-
 
     public function __construct()
     {

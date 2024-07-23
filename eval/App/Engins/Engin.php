@@ -3,6 +3,7 @@
 namespace App\Engins;
 
 use app\Box\Box;
+use App\Box\BoxManager;
 use ReflectionClass;
 
 /**
@@ -21,11 +22,11 @@ abstract class Engin implements EnginContract
 
     public function goToBox(Box $box): void
     {
-        $box->addEngin($this);
+        BoxManager::getInstance()->addEnginEqually($this);
     }
 
     /**
-     * Retourne le nom de la classe de l'engin actuellement instancié
+     * Retourne le nom de la classe de l'engin actuellement instancié.
      * @return string
      */
     public function getEnginName(): string

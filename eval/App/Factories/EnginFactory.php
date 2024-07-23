@@ -13,9 +13,12 @@ use Exception;
 class EnginFactory
 {
     /**
+     * Créer une nouvelle instance d'engin
+     * @param string $class Nom de la classe
+     * @return Bulldozer|Tractopelle|Nacelle|RouleauCompresseur|Pelleteuse
      * @throws Exception
      */
-    public static function create(string $class)
+    public static function create(string $class): Bulldozer|Tractopelle|Nacelle|RouleauCompresseur|Pelleteuse
     {
         //équivalent switch
         return match ($class) {

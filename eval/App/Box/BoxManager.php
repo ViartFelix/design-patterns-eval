@@ -11,8 +11,8 @@ class BoxManager
     /** @var BoxManager Instance de boxManager */
     private static BoxManager $instance;
 
+    /** @var array Tableau contenant les instances de boîtes */
     private array $boxes = array();
-
 
     public function __construct()
     {}
@@ -72,23 +72,26 @@ class BoxManager
     }
 
     /**
-     * Créée une nouvelle boîte
-     * @return void
+     * Créée une nouvelle boîte vide et la retourne
+     * @return Box
      */
-    public function createBox()
+    public function createBox(): Box
     {
-
+        return new Box();
     }
 
     /**
      * Vas ajouter un engin la boîte.
-     * Si une boîte précédente ne possède pas de véhicule, alors le manager va
-     * le mettre dans les boîtes précédentes s'il y a de la place
+     * Si une boîte précédente ne possède pas cet engin et qu'il contient de la place,
+     * alors le manager va l'insérer dans la boîte.
+     * <hr/>
+     * Si aucune boîte ne contient de place, alors le manager va insérer ce véhicule dans une nouvelle boîte.
      * @param $toInsert
      * @return void
      */
     public function addEnginEqually($toInsert): void
     {
+        //instances pour lesquelles il faut checker la présence dans les boîtes
         $uniqueInstances = [
             "Bulldozer", "Nacelle", "Pelleteuse", "RouleauCompresseur", "Tractopelle"
         ];
@@ -98,12 +101,13 @@ class BoxManager
         foreach ($this->getBoxes() as $index => $box)
         {
             if(!$hasBeenInserted) {
-                //comptage nombre d'instances des classes ci-dessus
+                //comptage du nombre d'instances des classes ci-dessus
                 $resultArray = array_fill_keys($uniqueInstances, 0);
 
                 foreach ($box->getInstance() as $engin) {
                     //nom de l'engin instancié
                     $enginClass = $engin->getEnginName();
+                    //incrémentation du nombre d'instances de cette classe
                     $resultArray[$enginClass]++;
                 }
 
