@@ -148,6 +148,9 @@
   },
   "active": "02cbe80843aff1fa",
   "lastOpenFiles": [
+    "eval/todo.md~",
+    "eval/todo.md",
+    "eval/hey.md",
     "eval/eval design pattern.pdf",
     "eval design pattern.pdf",
     "eval",
@@ -161,7 +164,6 @@
     "design-patterns/observer/DAB.js",
     "design-patterns/observer/Banque.js",
     "design-patterns/observer",
-    "design-patterns/strategy/Console.php",
     "design-patterns/node_modules/@lit-labs/ssr-dom-shim/README.md",
     "design-patterns/node_modules/acorn/README.md",
     "design-patterns/node_modules/acorn/CHANGELOG.md",
@@ -182,8 +184,6 @@
     "design-patterns/node_modules/@tsconfig/node14/README.md",
     "design-patterns/node_modules/@tsconfig/node12/README.md",
     "design-patterns/node_modules/@tsconfig/node10/README.md",
-    "design-patterns/node_modules/@tsconfig/node16/README.md",
-    "design-patterns/node_modules/@material/web/README.md",
     "design-patterns/node_modules/lit/logo.svg"
   ]
 }
